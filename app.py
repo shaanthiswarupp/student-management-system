@@ -4,7 +4,8 @@
 from fastapi import FastAPI ,HTTPException
 from pydantic import BaseModel , Field
 
-from main import add_student,get_all_students,get_student_by_name,update_student,delete_student
+# from main import add_student,get_all_students,get_student_by_name,update_student,delete_student
+from main import add_student,get_all_students,get_student_by_name,update_student,delete_student,get_students_by_course
 
 # Create FastAPI application
 app = FastAPI()
@@ -124,6 +125,30 @@ def delete_student_api(name: str):
         "student": student_data
     }
 
+
+
+#===========================================================get_students_by_course(course) =================
+# ==========================================
+# READ: Get students by course
+
+@app.get("/students/course/{course}")
+def read_students_by_course(course: str):
+
+    students = get_students_by_course(course)
+
+    student_list = []
+
+    for student in students:
+        student_data = {
+            "id": student[0],
+            "name": student[1],
+            "age": student[2],
+            "course": student[3]
+        }
+
+        student_list.append(student_data)
+
+    return student_list
 
 
 
