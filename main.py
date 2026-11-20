@@ -115,7 +115,27 @@ def delete_student(name):
         cursor.close()
         connection.close()
 
+#=================  step-6 =  step-2 + step-3 + step-4 + step-5 +step-6  ========================
 
+# READ: Get students by course
+def get_students_by_course(course):
+    connection = get_connection()
+    cursor = None
+
+    try:
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM students WHERE course = %s"
+        cursor.execute(query, (course,))
+
+        students = cursor.fetchall()
+        return students
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        connection.close()
 
 
 
